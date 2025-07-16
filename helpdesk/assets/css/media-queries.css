@@ -1,0 +1,33 @@
+@media (max-width: 900px) {
+ 
+    .sidebar {
+        position: fixed;
+        left: -180px;
+        width: 180px;
+        color: #ffff;
+        z-index: 1000;
+
+    }
+
+    .close-sidebar.sidebar {
+       
+        position: fixed;
+        left: 0px;
+        width: 20em;
+
+    }
+
+    .close-sidebar .descricao-itens {
+        display: inline-flex;
+    }
+
+    .close-sidebar .btn-logout .descricao-itens {
+        display: inline-flex;
+    }
+
+
+    .conteudo-section {
+        z-index: 1;
+        padding: 20px;
+    }
+}
