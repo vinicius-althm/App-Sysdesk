@@ -6,11 +6,16 @@ Atualmente, o projeto encontra-se na **primeira versão**, com foco total na **i
 ## 🎯 Próximos Passos
 
 Está em andamento o desenvolvimento de um **painel administrativo**, onde a equipe interna poderá:
-
+**Front-End**:
 - Gerenciar todos os chamados abertos pelos clientes.
 - Acompanhar o status de atendimento.
 - Organizar processos internos de suporte e manutenção.
 - Gerar relatórios e métricas para otimizar o atendimento.
+**Back-End**:
+- Melhorar a conexão com o banco de dados e otimizar o processamento de dados.
+- Sanitizar dados de entrada para evitar vulnerabilidades como SQL Injection.
+- Implementar o uso do **Composer** para gerenciamento de dependências, facilitando a organização do código e integração de bibliotecas como:
+  - **PHPMailer**: envio de e-mails automáticos de notificação.  
 
 ## ⚙️ Tecnologias Utilizadas
 
