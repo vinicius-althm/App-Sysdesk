@@ -23,8 +23,8 @@ Está em andamento o desenvolvimento de um **painel administrativo**, onde a equ
 - **Servidor Local:** XAMPP  
 - **Linguagem Principal:** PHP + SQL  
 - **Banco de Dados:** MySQL  
-- **Framework CSS:** Bootstrap 5.x  
-- **Framework JS:** DataTables  
+- **Biblioteca CSS:** Bootstrap 5.x  
+- **Biblioteca JS:** DataTables  
 - **IDE:** Visual Studio Code  
 - **Transferência de Arquivos:** FTP Client (ex.: FileZilla)
 
