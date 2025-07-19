@@ -1,5 +1,5 @@
 # 📂 SysDesk - Sistema de Chamados
-###Versão 1.0
+#### Versão 1.0
 
 O **SysDesk** é um sistema de gerenciamento de chamados em desenvolvimento, criado para facilitar o registro e o acompanhamento de solicitações por parte dos clientes.  
 Atualmente, o projeto encontra-se na **primeira versão**, com foco total na **interface do cliente**, garantindo uma experiência simples, direta e eficiente para abertura e consulta de chamados.
