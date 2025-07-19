@@ -108,18 +108,28 @@
                                                             <div class="mb-3">
                                                                 <input type="text" class="form-control" placeholder=<?= htmlspecialchars($row_chamados['categoria']); ?> readonly>
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <textarea class="form-control" rows="3" readonly><?= htmlspecialchars($row_chamados['descricao']) ?></textarea>
+                                                             <label for="descricao" class="mb-2 fw-bold">Motivo </label>
+                                                              <div class="mb-3">
+                                                                <textarea  class="form-control" rows="1" readonly> <?= htmlspecialchars($row_chamados['descricao']); ?> </textarea>
                                                             </div>
+                                                            <hr class="divide"></hr>
+                                                            
+                                                             
+
+                                                            <div class="mb-4">
+                                                                <label for="tramite" class="mb-2 fw-bold">Mensagem recente </label>
+                                                                <textarea class="form-control" rows="3" readonly> # <?= htmlspecialchars($tramite_atual) ?></textarea>
+                                                            </div>
+                                                              
                                                             <div class="mb-3">
-                                                                <label for="exampleFormControlTextarea1" class="form-label"><strong>Mensagem</strong></label>
+                                                                <label for="exampleFormControlTextarea1" class="form-label"><strong>Responder Mensagem</strong></label>
                                                                 <textarea class="form-control" id="respostaChamado" rows="3" name="tramite_chamado"></textarea>
                                                             </div>
-
+                                                          
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#visualizar<?= $i ?>">Histórico</button>
-                                                            <button type="submit" class="btn btn-outline-success">Responder</button>
+                                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#visualizar<?= $i ?>"><i class="fa-solid fa-receipt me-2"></i><span>Histórico</span></button>
+                                                            <button type="submit" class="btn btn-outline-success"><i class="fa-solid fa-reply me-2"></i><span>Responder</span></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -163,7 +173,7 @@
                                                     </form>
                                                     <div class="modal-footer">
 
-                                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#responder<?= $i ?>">Responder</button>
+                                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#responder<?= $i ?>"><i class="fa-solid fa-reply me-2"></i><span>Responder</span></button>
                                                     </div>
                                                 </div>
 

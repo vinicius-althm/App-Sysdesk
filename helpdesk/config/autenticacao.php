@@ -29,11 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
     // Executa a consulta
     $resultado = mysqli_query($conn, $query);
 
-    //Transformar query do usuário em array
-    $info = $resultado->fetch_assoc();
+    
 
     // Verifica se houve algum resultado retornado pela consulta
     if (mysqli_num_rows($resultado) != 0):
+        //Transformar query do usuário em array
+        $info = $resultado->fetch_assoc();
         if ($info['Ativo'] == 'S'):
       
             ini_set('session.gc_maxlifetime', 86400); // 60min

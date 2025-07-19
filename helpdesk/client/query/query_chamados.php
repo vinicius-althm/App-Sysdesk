@@ -29,4 +29,15 @@
       $result = mysqli_query($conn, $query_respostas);
       $row = mysqli_fetch_assoc($result);
       $result_registros = $row['total_respostas'];
-      
+
+
+      //retornar o max(id) da tb-suporte
+            $query_tramite = "SELECT  *  FROM tb_suporte_chamados";
+            if($global_profile =="suporte"):
+            $query_tramite .= " WHERE perfil_user_reply = 'cliente' ORDER BY dt_registro DESC";
+            else:
+                   $query_tramite .= " WHERE perfil_user_reply = 'suporte' ORDER BY dt_registro DESC";
+            endif;
+            $consulta_tramite = mysqli_query($conn, $query_tramite);
+            $retornar_tramite = mysqli_fetch_assoc($consulta_tramite);
+            $tramite_atual = $retornar_tramite['tramite'];

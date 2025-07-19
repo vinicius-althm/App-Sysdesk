@@ -24,11 +24,11 @@ if (!$_SESSION['email']) :
     // Verifica a URL atual para saber se o usuário está no CID ou Hub
     $current_page = $_SERVER['REQUEST_URI'];
 
-    if (strpos($current_page, '../') !== false) {
+   /* if (strpos($current_page, '../') !== false) {
         // Se estiver na página do helpdesk, redireciona para o login do helpdesk
-        header('Location: ../');
+        header('Location: ../admin');
         exit();
-    } 
+    } */
     //Desloga o usuario em um determinado tempo
     if (isset($_SESSION['tempo_login'])) :
         // Define o tempo limite de inatividade em segundos (1 minuto)
