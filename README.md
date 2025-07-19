@@ -23,7 +23,7 @@ Está em andamento o desenvolvimento de um **painel administrativo**, onde a equ
 - **Transferência de Arquivos:** FTP Client (ex.: FileZilla)
 
 ## 🚀 Funcionalidades da Versão 1.0
-
+- **Visão única:** o suporte consegue visualizar todos os chamados, enquanto o cliente visualiza apenas seus próprios chamados.
 - Página de abertura de chamados para o cliente.
 - Consulta do status do chamado.
 - Consulta do histórico de chamados.
