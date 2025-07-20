@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . '/App/helpdesk/config/functions/service.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -18,22 +20,29 @@ session_start();
 </head>
 
 <body id="body_login_bg">
-    <div class="container">
+    <!--Flash message-->
+    <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+        <?php show_flash_message(); ?>
+    </div>
+    <!-- fim flash message-->
+    <!--container principal-->
+    <div class="container mt-3">
+        <!--container formulario-->
         <div class="container-formulario">
             <div class="text-center mb-3 p-2">
-               
+
                 <img src="assets/images/sup.png" class="img-login mb-3" alt="logo">
                 <h3 class="text-success fw-bold">SysDesk</h3>
             </div>
             <form action="./config/autenticacao.php" method="POST" id="formLogin">
-                
+
                 <div class="mb-3">
                     <label for="email" class="form-label"><i class="fa-solid fa-circle-user me-2"></i>E-mail*</label>
-                    <input type="email" class="form-control" name="email" id="email" required>
+                    <input type="email" class="form-control" name="email" id="email">
                 </div>
                 <div class="mb-3">
                     <label for="senha" class="form-label"> <i class="fa-solid fa-lock me-2"></i>Senha *</label>
-                    <input type="password" class="form-control" name="senha" id="senha" required>
+                    <input type="password" class="form-control" name="senha" id="senha">
                 </div>
 
                 <button type="submit" id="button" class="btn btn-login btn-secondary mb-3 w-100">
@@ -49,8 +58,8 @@ session_start();
 
             </form>
         </div>
-
-    </div>
+        <!-- fim container formulario-->
+    </div> <!--fim container principal-->
 
 
 
@@ -59,7 +68,7 @@ session_start();
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="assets/js/flash_message.js"></script>
 </body>
 
 </html>

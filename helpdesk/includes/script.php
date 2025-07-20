@@ -19,7 +19,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <!-- Teus Scripts -->
-<script src="../assets/js/script.js"></script>
+<script src="../assets/js/datatable_custom.js"></script>
+<script src="../assets/js/flash_message.js"></script>
 
 </body>
 
