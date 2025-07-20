@@ -2,11 +2,14 @@
 //Iniciando a sessão:
 session_start();
 require_once('./database/conexao.php');
+require_once('./functions/service.php');
+
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST"):
     if (empty($_POST['email']) || empty($_POST['senha'])):
-        $_SESSION['status'] = 'Preencha os campos obrigatorios.'; // Caso algum campo obrigatório não tenha sido preenchido, redirecione de volta para a página de login com uma mensagem de erro
+        set_message_default('warning', 'Campos obrigatorios', 'Preencha os campos E-mail e senha!');
+        // Caso algum campo obrigatório não tenha sido preenchido, redirecione de volta para a página de login com uma mensagem de erro
         header('location: ../');
         exit();
     endif;
@@ -61,15 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
             exit();
             
         else:
-         
-            $_SESSION['status'] = 'Usuário inativo';
+            set_message_default('warning', 'Erro no login', 'Usuario inativo.');
+            #$_SESSION['status'] = 'Usuário inativo';
             $result_log_falha = mysqli_query($conn, $log_falha);
             header('Location: ../');
             exit();
         endif;
 
     else:
-        $_SESSION['status'] = 'E-mail ou senha estão incorretos';
+        set_message_default('erro', 'Erro no login', 'E-mail ou senha incorretos');
+        #$_SESSION['status'] = 'E-mail ou senha estão incorretos';
         $result_log_falha = mysqli_query($conn, $log_falha);
         // Usuário não encontrado, exiba uma mensagem de erro (por exemplo, redirecione de volta para a página de login com uma mensagem de erro)
         header('location: ../');
