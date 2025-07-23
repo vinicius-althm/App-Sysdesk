@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
             exit();
             
         else:
-            set_message_default('warning', 'Erro no login', 'Usuario inativo.');
+            set_message_default('warning', 'Erro no login', 'Usuario inativo/Sem acesso');
             $result_log_inativo = mysqli_query($conn, $log_inativo);
             header('Location: ../');
             exit();

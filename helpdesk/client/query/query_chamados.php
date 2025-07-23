@@ -13,7 +13,7 @@
       if ($global_departamento != 'TI'):
             $query_chamados .= " WHERE id_usuario_criacao = '{$registro_id}'";    // Filtro para clientes
       endif;
-      $query_chamados .= " ORDER BY dt_atualizacao DESC";
+      $query_chamados .= " ORDER BY tb_suporte.dt_registro DESC";
       $result_chamados = mysqli_query($conn, $query_chamados);
 
 
@@ -32,16 +32,6 @@
                   $historico_por_chamado[$id_chamado] = [];
             endif;
             $historico_por_chamado[$id_chamado][] = $row_historico;
-      endwhile;
-
-      $registro_historico_chamado = [];
-      while ($row_registros = mysqli_fetch_assoc($result_historico)):
-            $id_chamado = $row_registros['id_chamado'];
-            if (!isset($registro_historico_chamado[$id_chamado])):
-                  $registro_historico_chamado[$id_chamado] = [];
-            endif;
-            $registro_historico_chamado[$id_chamado][] = $row_registros;
-
       endwhile;
 
 
