@@ -28,10 +28,11 @@ function notification_status($tipo, $titulo, $mensagem)
         'success' => 'bg-success text-white border-0',
         'erro' => 'bg-danger text-white border-0',
         'warning' => 'bg-warning text-dark border-0',
+         default => 'bg-secondary text-white border-0'
     };
 
     return
-        '<div class="toast align-items-center ' . $class_toast . ' role="alert" aria-live="assertive" aria-atomic="true">
+        '<div class="toast w-100 ' . $class_toast . ' role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     <strong>' . htmlspecialchars($titulo) . '</strong><br>' . htmlspecialchars($mensagem) . '

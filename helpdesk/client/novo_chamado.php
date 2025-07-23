@@ -1,6 +1,8 @@
 <?php
 require_once('../config/verificaSessao.php');
+require_once('../config/functions/service.php');
 require_once('../includes/header.php');
+
 
 ?>
 <section class="container-fluid">
@@ -21,7 +23,7 @@ require_once('../includes/header.php');
                 </div>
                 <div class="card-body">
                     <form class="p-2" action="process/process_novo_chamado.php" method="POST" enctype="multipart/form-data" id="formChamado">
-                        <input type="hidden" class="form-control" id="perfil" name="perfil" readonly value="<?= $global_profile ?>">
+                        
 
                         <div class="form-group mb-2">
                             <label for="email" class="mb-2">E-mail</label>

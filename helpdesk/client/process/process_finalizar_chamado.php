@@ -1,10 +1,10 @@
 <?php
 require_once('../../config/verificaSessao.php');
+require_once('../../config/functions/service.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     require_once('../../config/database/conexao.php');
     $id  = trim($_POST['finalizar']);
-
-
 
     if ($global_departamento == 'TI'):
         //Finalizar chamado

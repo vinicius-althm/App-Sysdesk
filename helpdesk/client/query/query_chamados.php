@@ -2,42 +2,61 @@
       require_once('../config/verificaSessao.php');
       require_once('../config/database/conexao.php');
 
-      $query_chamados = "SELECT *, tbs.descricao_status AS status_descricao
-      FROM tb_suporte  ts
-      JOIN  tb_status tbs 
-      ON tbs.id_status = ts.id_status_chamado";
+      $query_chamados = "SELECT tb_suporte.*, 
+      tb_usuarios.email AS email,
+      tb_status.id_status AS id_status,
+      tb_status.descricao_status AS descricao_status
+      FROM tb_suporte tb_suporte
+      JOIN tb_status tb_status ON tb_status.id_status = tb_suporte.id_status_chamado
+      JOIN tb_usuarios tb_usuarios ON tb_usuarios.id = tb_suporte.id_usuario_criacao";
 
       if ($global_departamento != 'TI'):
-            $query_chamados .= " WHERE usuario_criacao = '{$global_email}'";    // Filtro para clientes
+            $query_chamados .= " WHERE id_usuario_criacao = '{$registro_id}'";    // Filtro para clientes
       endif;
       $query_chamados .= " ORDER BY dt_atualizacao DESC";
       $result_chamados = mysqli_query($conn, $query_chamados);
 
-      /*--- HISTORICO CHAMADOS --- */
-      /* Retorna o historico cliente e suporte*/
-      $query_visualizacao = "SELECT id_chamado, tramite, usuario_tramite, perfil_user_reply, dt_registro FROM tb_suporte_chamados ORDER BY dt_registro DESC";
-      $result_visualizacao = mysqli_query($conn, $query_visualizacao);
 
-      /*Conta os registros de acordo com o perfil*/
-      $query_respostas = "SELECT COUNT(*) as total_respostas FROM tb_suporte_chamados";
-      if ($global_profile == 'suporte'):
-            $query_respostas .= " WHERE perfil_user_reply = 'cliente' ORDER BY dt_registro DESC";
-      else:
-            $query_respostas .= " WHERE perfil_user_reply = 'suporte' ORDER BY dt_registro DESC";
+      #Historico#
+      $query_historico = "SELECT  tb_s.id_chamado, tb_s.id_usuario_tramite, tb_u.nome, tb_s.tramite, tb_s.id_perfil_reply , tb_s.dt_registro
+      FROM tb_suporte_chamados tb_s
+      JOIN tb_usuarios tb_u ON tb_u.id = tb_s.id_usuario_tramite 
+      ORDER BY tb_s.dt_registro DESC";
+      $result_historico = mysqli_query($conn, $query_historico);
+      # Organiza o historico  por chamado:
+      $historico_por_chamado = [];
+
+      while ($row_historico = mysqli_fetch_assoc($result_historico)) :
+            $id_chamado = $row_historico['id_chamado'];
+            if (!isset($historico_por_chamado[$id_chamado])):
+                  $historico_por_chamado[$id_chamado] = [];
+            endif;
+            $historico_por_chamado[$id_chamado][] = $row_historico;
+      endwhile;
+
+      $registro_historico_chamado = [];
+      while ($row_registros = mysqli_fetch_assoc($result_historico)):
+            $id_chamado = $row_registros['id_chamado'];
+            if (!isset($registro_historico_chamado[$id_chamado])):
+                  $registro_historico_chamado[$id_chamado] = [];
+            endif;
+            $registro_historico_chamado[$id_chamado][] = $row_registros;
+
+      endwhile;
+
+
+      $query_respostas = "SELECT id_chamado, COUNT(*) AS total_respostas FROM tb_suporte_chamados";
+      if ($global_profile == 3):
+            $query_respostas .= " WHERE id_perfil_reply = 2 GROUP BY id_chamado";
+      elseif ($global_profile == 2):
+            $query_respostas .= " WHERE id_perfil_reply = 3 GROUP BY id_chamado";
       endif;
 
-      $result = mysqli_query($conn, $query_respostas);
-      $row = mysqli_fetch_assoc($result);
-      $result_registros = $row['total_respostas'];
 
+      $result_respostas = mysqli_query($conn, $query_respostas);
 
-      //retornar o max(id) da tb-suporte
-            $query_tramite = "SELECT  *  FROM tb_suporte_chamados";
-            if($global_profile =="suporte"):
-            $query_tramite .= " WHERE perfil_user_reply = 'cliente' ORDER BY dt_registro DESC";
-            else:
-                   $query_tramite .= " WHERE perfil_user_reply = 'suporte' ORDER BY dt_registro DESC";
-            endif;
-            $consulta_tramite = mysqli_query($conn, $query_tramite);
-            $retornar_tramite = mysqli_fetch_assoc($consulta_tramite);
-            $tramite_atual = $retornar_tramite['tramite'];
+      $total_respostas_por_chamado = [];
+      while ($row_resposta = mysqli_fetch_assoc($result_respostas)):
+            $id_chamado = $row_resposta['id_chamado'];
+            $total_respostas_por_chamado[$id_chamado] = $row_resposta['total_respostas'];
+      endwhile;

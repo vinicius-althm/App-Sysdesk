@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
     //query SQL para registro log de acesso    
     $log_sucesso = "INSERT INTO logs_users(email,status, ip) VALUES ('{$email}','Sucesso','{$ip}')";
     $log_falha = "INSERT INTO logs_users(email,status,ip) VALUES ('{$email}','Falha','{$ip}')";
-
+    $log_inativo = "INSERT INTO logs_users(email,status,ip) VALUES ('{$email}','Inativo','{$ip}')";
     // Executa a consulta
     $resultado = mysqli_query($conn, $query);
 
@@ -43,20 +43,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
             ini_set('session.gc_maxlifetime', 86400); // 60min
            
             $_SESSION['email'] = $email;
+            $_SESSION['id_cliente'] = $info['id'];
             $_SESSION['nome'] = $info['nome'];
             $_SESSION['senha'] = $info['senha'];
             $_SESSION['cargo'] = $info['cargo'];
             $_SESSION['departamento'] = $info['departamento'];
             $_SESSION['admin_user'] = $info['admin_user'];
-            $_SESSION['perfil_user'] = $info['perfil_user'];
-            $_SESSION['ativo'] = $info['Ativo'];
+            $_SESSION['id_perfil_usuario'] = $info['id_perfil_usuario'];
+            $_SESSION['Ativo'] = $info['Ativo'];
             $_SESSION['dt_registro'] = $info['dt_registro'];
             $_SESSION['dt_atualizacao'] = $info['dt_atualizacao'];
             // Define o tempo de login na sessão
             $_SESSION['tempo_login'] = time();
             $result_log_sucesso = mysqli_query($conn, $log_sucesso);
             // Usuário encontrado  (redirecione para uma página de acordo com o perfil)
-            if($info['perfil_user'] == 'suporte'):
+            if($info['id_perfil_user'] == 3):
                 header('Location: ../client/');
             else:
                 header('Location: ../client/');
@@ -65,15 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
             
         else:
             set_message_default('warning', 'Erro no login', 'Usuario inativo.');
-            #$_SESSION['status'] = 'Usuário inativo';
-            $result_log_falha = mysqli_query($conn, $log_falha);
+            $result_log_inativo = mysqli_query($conn, $log_inativo);
             header('Location: ../');
             exit();
         endif;
 
     else:
         set_message_default('erro', 'Erro no login', 'E-mail ou senha incorretos');
-        #$_SESSION['status'] = 'E-mail ou senha estão incorretos';
         $result_log_falha = mysqli_query($conn, $log_falha);
         // Usuário não encontrado, exiba uma mensagem de erro (por exemplo, redirecione de volta para a página de login com uma mensagem de erro)
         header('location: ../');

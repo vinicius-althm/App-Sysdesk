@@ -1,3 +1,5 @@
+<?php require_once('../config/functions/service.php');?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -79,3 +81,8 @@
 
     </header>
     <main class="mt-2 pb-4 flex-fill">
+              <!--Flash message-->
+            <div aria-live="polite" aria-atomic="true" class="toast-container  position-fixed top-0 end-0 p-3" style="z-index: 1055">
+                <?php show_flash_message(); ?>
+            </div>
+      
