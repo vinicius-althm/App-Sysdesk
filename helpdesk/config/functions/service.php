@@ -3,13 +3,14 @@
 
 /*Flash messages*/
 
-function set_message_default($tipo, $titulo, $mensagem)
+function set_message_default( $tipo,  $titulo,  $mensagem)
 {
     $_SESSION['status'] = [
         'tipo' => $tipo,
         'titulo' => $titulo,
         'mensagem' => $mensagem
     ];
+  
 }
 
 /*Apresenta as mensagens*/
@@ -41,3 +42,9 @@ function notification_status($tipo, $titulo, $mensagem)
             </div>
         </div>';
 }
+/* Fim flash messages */
+
+
+/* Envio de e-mails */
+
+function send_email(){};

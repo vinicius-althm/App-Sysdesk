@@ -1,4 +1,10 @@
-<?php require_once('../config/functions/service.php');?>
+ <?php 
+ require_once($_SERVER['DOCUMENT_ROOT'] . '/App/helpdesk/config/verificaSessao.php');
+     require_once($_SERVER['DOCUMENT_ROOT'] . '/App/helpdesk/config/database/conexao.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/App/helpdesk/config/functions/service.php');
+
+
+    ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
