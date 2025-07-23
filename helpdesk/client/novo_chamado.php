@@ -1,9 +1,5 @@
 <?php
-require_once('../config/verificaSessao.php');
-require_once('../config/functions/service.php');
 require_once('../includes/header.php');
-
-
 ?>
 <section class="container-fluid">
 

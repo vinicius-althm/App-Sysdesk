@@ -15,10 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 WHERE id = {$id}";
         if (mysqli_query($conn, $query_finalizar)):
 
-            $_SESSION['status'] = 'Chamado Finalizado';
+            set_message_default('success', "Ticket #{$id}", 'Finalizado com sucesso');
+
             header('Location: ../consultar.php');
         else:
-            echo '[ERRO] - Não foi possivel finalizar o chamado. '  . mysqli_error($conn);
+            $erro = mysqli_error($conn);
+            set_message_default('success', "Ticket #{$id}", "'Não foi possivel finalizar");
+            header('Location: ../consultar.php');
+
         endif;
     else:
 
@@ -30,11 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 WHERE id = {$id}";
 
         if (mysqli_query($conn, $query_finalizar_cliente)):
-            $_SESSION['status'] = 'Chamado Finalizado';
+            set_message_default('success', "Ticket #{$id}", 'Finalizado com sucesso');
             header('Location: ../consultar.php');
 
         else:
-            echo '[ERRO] - Não foi possivel finalizar o chamado. ' . mysqli_error($conn);
+            $erro = mysqli_error($conn);
+            set_message_default('success', "Ticket #{$id}", "Não foi possivel finalizar ");
+            header('Location: ../consultar.php');
         endif;
     endif;
     mysqli_close($conn);

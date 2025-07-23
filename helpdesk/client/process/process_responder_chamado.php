@@ -23,11 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
        if (mysqli_query($conn, $query_update_atendente)):
 
             set_message_default('success', "Ticket #{$id}", 'Resposta enviada com sucesso');
-
             header('Location: ../consultar.php');
+            exit();
         else:
             set_message_default('erro', 'Ticket' , 'Erro ao enviar resposta');;
             header('Location: ../consultar.php');
+            exit();
         endif;
     else:
         //Atualizar chamado - Cliente
@@ -40,9 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         if (mysqli_query($conn, $query_update_cliente)):
             set_message_default('success', "Ticket #{$id}", 'Resposta enviada com sucesso');
             header('Location: ../consultar.php');
+            exit();
         else:
             set_message_default('erro', 'Ticket', 'Erro ao enviar resposta');
             header('Location: ../consultar.php');
+            exit();
         endif;
     endif;
 endif;
