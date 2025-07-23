@@ -4,8 +4,8 @@ $(document).ready(function () {
     dom:
       "<'row mb-3'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
       "<'row'<'col-sm-12'tr>>" +
-      "<'row mt-3'<'col-sm-12 col-md-7 'i><'col-sm-12 col-md-5 flex-wrap  justify-content-center 'p>>",
-    scrollY: 400,
+      "<'row mt-3'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6 flex-wrap  justify-content-center 'p>>",
+    scrollY: 200,
     buttons: [
       {
         text: "Excel",
@@ -22,7 +22,7 @@ $(document).ready(function () {
     ],
     language: {
       lengthMenu: "Mostrar _MENU_ registros por página",
-      zeroRecords: "Nada encontrado ❌",
+      zeroRecords: "Não encontramos nenhum chamado ❌",
       info: "Páginas _PAGE_ de _PAGES_",
       infoEmpty: "Nenhum registro disponível",
       infoFiltered: "(filtrado de _MAX_ registros)",
