@@ -1,10 +1,6 @@
         <?php
-        require_once('../config/verificaSessao.php');
-        require_once('../config/functions/service.php');
-        require_once('../config/database/conexao.php');
-        require_once('query/query_chamados.php');
         require_once('../includes/header.php');
-
+        require_once('query/query_chamados.php');
         ?>
         <section class="container">
             <div class="row justify-content-center">
@@ -61,7 +57,7 @@
                                                 </a>
                                                 <!-- Finalizar chamado-->
                                                 <form action="process/process_finalizar_chamado.php" method="POST" class="d-inline">
-                                                    <input type="hidden" name="finalizar" value="<?= $row_chamados['id'] ?>">
+                                                    <input type="hidden" name="finalizar" value="<?= $id ?>">
                                                     <button type="submit" class="btn btn-sm btn-outline-success me-2">
                                                         <i class="fa-regular fa-circle-check fa-sm"></i>
                                                     </button>
@@ -167,13 +163,7 @@
                                                                 <span class="badge <?= $badge; ?> text-dark"><?= $row_visualizacao['nome'] ?></span> <span><?= date('d/m/Y H:i:s', strtotime($row_visualizacao['dt_registro'])) ?></span>
                                                             </div>
                                                             <div class="card-body">
-                                                                <figure class="text-start">
-                                                                    <blockquote class="blockquote">
-                                                                        <p class="text-muted"><?= htmlspecialchars($row_visualizacao['tramite']) ?></p>
-                                                                    </blockquote>
-
-                                                                </figure>
-
+                                                                <p class="text-muted"><?= htmlspecialchars($row_visualizacao['tramite']) ?></p> 
                                                             </div>
                                                         </div>
                                                     <?php endforeach; ?>
