@@ -1,3 +1,5 @@
-document.querySelectorAll('.toast').forEach((toastTarget) => {
-  return new bootstrap.Toast(toastTarget).show();
+$(document).ready(function () {
+  document.querySelectorAll('.toast').forEach((toastTarget) => {
+    return new bootstrap.Toast(toastTarget).show();
+  });
 });

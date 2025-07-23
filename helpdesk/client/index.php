@@ -1,8 +1,5 @@
     <?php
-    require_once('../config/verificaSessao.php'); 
-
      require_once('../includes/header.php'); 
-     
      ?>
 
 
