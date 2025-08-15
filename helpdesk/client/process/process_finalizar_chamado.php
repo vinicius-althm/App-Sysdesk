@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $query_finalizar = "UPDATE tb_suporte 
                 SET atendente = '{$global_email}', 
                 id_status_chamado = 5,
-                dt_atualizacao = NOW()
+                dt_concluido = NOW()
                 WHERE id = {$id}";
         if (mysqli_query($conn, $query_finalizar)):
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $query_finalizar_cliente = "UPDATE tb_suporte 
                 SET
                 id_status_chamado = 3,
-                dt_atualizacao = NOW()
+                dt_concluido = NOW()
                 WHERE id = {$id}";
 
         if (mysqli_query($conn, $query_finalizar_cliente)):
