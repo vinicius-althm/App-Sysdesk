@@ -7,7 +7,7 @@
 
 
                 <div class="col-12 col-lg-8 ">
-   
+
                     <div class="row justify-content-between">
                         <div class=" col-sm-6">
                             <a href="novo_chamado.php" class="btn btn-success  mb-3"><i class="fa-solid fa-square-plus fa-sm me-3"></i><span>Novo chamado</span></a>
@@ -29,6 +29,7 @@
                                         <th>Atendente</th>
 
                                         <th>Data/Registro</th>
+                                        <th>Data/Conclusão</th>
 
                                     </tr>
                                 </thead>
@@ -38,16 +39,24 @@
                                     while ($row_chamados = mysqli_fetch_assoc($result_chamados)):
                                         $id = $row_chamados['id'];
                                         $result_registros = isset($total_respostas_por_chamado[$id]) ? $total_respostas_por_chamado[$id] : 0;
+                                        $inativo = "";
+                                        if (in_array($row_chamados['id_status'], [3, 4, 5, 6])):
+                                            $inativo = "disabled";
+                                        endif;
                                     ?>
                                         <tr>
                                             <td><?= $dat_atualizacao = ($row_chamados['dt_atualizacao'] == null) ? '-' : date('d/m/Y H:i', strtotime($row_chamados['dt_atualizacao'])) ?></td>
+                                           
+
                                             <td class="d-flex justify-content-center">
-                                                <a title="Responder chamado" href="#" type="button" class="btn btn-sm btn-outline-success me-2" data-bs-toggle="modal" data-bs-target="#responder<?= $i ?>">
-                                                    <i class="fa-solid fa-reply fa-sm "></i>
-                                                </a>
-                                                <a title="Visualizar resposta" href="#" type="button" class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#visualizar<?= $i ?>">
+
+                                                <!-- detalhes do chamado-->
+                                                <button title="Detalhes do chamado" href="#" type="button" class="btn btn-sm btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#detalhes<?= $i ?>">
+                                                    <i class="fa-regular fa-file-lines fa-sm"></i> <span>Detalhes</span>
+                                                </button>
+                                                <a title="Historico" href="#" type="button" class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#visualizar<?= $i ?>">
                                                     <div class="position-relative d-inline-block">
-                                                        <i class="fa-regular fa-comment-dots fa-sm"></i>
+                                                        <i class="fa-regular fa-comment-dots fa-sm"></i> <span>Historico</span>
                                                         <?php if ($result_registros > 0): ?>
                                                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                                                 <?= $result_registros ?>
@@ -55,11 +64,13 @@
                                                         <?php endif; ?>
                                                     </div>
                                                 </a>
+
                                                 <!-- Finalizar chamado-->
+
                                                 <form action="process/process_finalizar_chamado.php" method="POST" class="d-inline">
                                                     <input type="hidden" name="finalizar" value="<?= $id ?>">
-                                                    <button type="submit" class="btn btn-sm btn-outline-success me-2">
-                                                        <i class="fa-regular fa-circle-check fa-sm"></i>
+                                                    <button type="submit" class="btn btn-sm btn-outline-success me-2 <?= $inativo ?>">
+                                                        <i class="fa-regular fa-circle-check fa-sm"></i> <span>Finalizar</span>
                                                     </button>
                                                 </form>
                                             </td>
@@ -78,7 +89,7 @@
                                             <td><?= htmlspecialchars($row_chamados['atendente']) ?></td>
 
                                             <td><?= date('d/m/Y H:i', strtotime($row_chamados['dt_registro'])) ?></td>
-
+                                                 <td><?= $dat_conclusao = ($row_chamados['dt_concluido'] == null) ? '-' : date('d/m/Y H:i', strtotime($row_chamados['dt_concluido'])) ?></td>
 
 
                                         </tr>
@@ -95,7 +106,10 @@
                             mysqli_data_seek($result_chamados, 0); // Volta ponteiro do result
                             $i = 0;
                             while ($row_chamados = mysqli_fetch_assoc($result_chamados)):
-                            ?>
+                                $inativo = "";
+                                if (in_array($row_chamados['id_status'], [3, 4, 5, 6])):
+                                    $inativo = "disabled";
+                                endif; ?>
                                 <!-- RESPONDER CHAMADOS-->
                                 <div class="modal fade" id="responder<?= $i ?>" tabindex="-1" aria-labelledby="responderModal<?= $i ?>" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -129,7 +143,7 @@
                                                     </hr>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlTextarea1" class="form-label"><strong>Responder Mensagem</strong></label>
-                                                        <textarea class="form-control" id="respostaChamado" rows="3" name="tramite_chamado"></textarea>
+                                                        <textarea class="form-control" id="respostaChamado" rows="3" name="tramite_chamado" required></textarea>
                                                     </div>
 
                                                 </div>
@@ -163,7 +177,7 @@
                                                                 <span class="badge <?= $badge; ?> text-dark"><?= $row_visualizacao['nome'] ?></span> <span><?= date('d/m/Y H:i:s', strtotime($row_visualizacao['dt_registro'])) ?></span>
                                                             </div>
                                                             <div class="card-body">
-                                                                <p class="text-muted"><?= htmlspecialchars($row_visualizacao['tramite']) ?></p> 
+                                                                <p class="text-muted"><?= htmlspecialchars($row_visualizacao['tramite']) ?></p>
                                                             </div>
                                                         </div>
                                                     <?php endforeach; ?>
@@ -172,7 +186,47 @@
 
                                             <div class="modal-footer">
 
-                                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#responder<?= $i ?>"><i class="fa-solid fa-reply me-2"></i><span>Responder</span></button>
+                                                <button type="button" class="btn btn-outline-success  <?= $inativo ?>" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#responder<?= $i ?>"><i class="fa-solid fa-reply me-2"></i><span>Responder</span></button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <!-- VISUALIZAR DETALHES DO CHAMADO-->
+                                <div class="modal fade" id="detalhes<?= $i ?>" tabindex="-1" aria-labelledby="detalhes<?= $i ?>" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-primary bg-gradient">
+                                                <h5 class="modal-title text-white" id="detalhes<?= $i ?>">Detalhes do chamado <?= '#' . $row_chamados['id']; ?></h5>
+
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <?php
+                                                $id_chamado = $row_chamados['id']; ?>
+
+                                                <div class="card">
+                                                    <div class="alert alert-light m-0" role="alert">
+
+                                                        <span><strong>Cliente:</strong> <?= $row_chamados['email'] ?></span><br>
+                                                        <span><strong>Criado:</strong> <?= date('d/m/Y H:i', strtotime($row_chamados['dt_registro']))  ?></span><br>
+                                                        <span><strong>Responsavel Técnico:</strong> <?= !empty($row_chamados['atendente']) ? $row_chamados['atendente'] : 'n/a' ?> </span><br>
+                                                        <span><strong>Assunto</strong> <?= ($row_chamados['assunto']) ?> </span><br>
+                                                        <span><strong>Categoria:</strong> <?= ($row_chamados['categoria']) ?> </span><br>
+                                                        <span><strong>Descrição:</strong> <?= ($row_chamados['descricao']) ?> </span><br>
+                                                        <span><strong>Concluido:</strong> <?= !empty($row_chamados['dt_concluido']) ? date('d/m/Y H:i', strtotime($row_chamados['dt_concluido'])) : 'n/a' ?> </span><br>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#visualizar<?= $i ?>"><i class="fa-solid fa-receipt me-2"></i><span>Histórico</span></button>
+
                                             </div>
                                         </div>
 
