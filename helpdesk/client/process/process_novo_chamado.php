@@ -31,7 +31,7 @@
             if ($result_novo_registro):
                 mysqli_query($conn, $query_chamados);
                 set_message_default('success', "Ticket #{$id_chamado}", 'Registrado com sucesso');
-                header('location: ../novo_chamado.php');
+                header('location: ../consultar.php');
                 exit();
             else:
 
