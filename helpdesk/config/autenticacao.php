@@ -31,13 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
     $log_inativo = "INSERT INTO logs_users(email,status,ip) VALUES ('{$email}','Inativo','{$ip}')";
     // Executa a consulta
     $resultado = mysqli_query($conn, $query);
-
-    
-
     // Verifica se houve algum resultado retornado pela consulta
     if (mysqli_num_rows($resultado) != 0):
         //Transformar query do usuário em array
         $info = $resultado->fetch_assoc();
+       
         if ($info['Ativo'] == 'S'):
       
             ini_set('session.gc_maxlifetime', 86400); // 60min
@@ -45,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"):
             $_SESSION['email'] = $email;
             $_SESSION['id_cliente'] = $info['id'];
             $_SESSION['nome'] = $info['nome'];
-            $_SESSION['senha'] = $info['senha'];
             $_SESSION['cargo'] = $info['cargo'];
             $_SESSION['departamento'] = $info['departamento'];
             $_SESSION['admin_user'] = $info['admin_user'];

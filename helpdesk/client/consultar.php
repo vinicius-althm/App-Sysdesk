@@ -40,7 +40,7 @@
                                         $id = $row_chamados['id'];
                                         $result_registros = isset($total_respostas_por_chamado[$id]) ? $total_respostas_por_chamado[$id] : 0;
                                         $inativo = "";
-                                        if (in_array($row_chamados['id_status'], [3, 4, 5, 6])):
+                                        if (in_array($row_chamados['id_status'], [3, 4])):
                                             $inativo = "disabled";
                                         endif;
                                     ?>
@@ -82,7 +82,7 @@
                                                 <?php
                                                 $badge_status = match ($row_chamados['id_status_chamado']) {
                                                     '1', '2' => 'badge bg-secondary',
-                                                    '3', '5' => 'badge bg-success'
+                                                    '3', '4' => 'badge bg-success'
                                                 } ?>
                                                 <span class="badge <?= $badge_status ?>"><?= htmlspecialchars($row_chamados['descricao_status']) ?></span>
                                             </td>
@@ -107,7 +107,7 @@
                             $i = 0;
                             while ($row_chamados = mysqli_fetch_assoc($result_chamados)):
                                 $inativo = "";
-                                if (in_array($row_chamados['id_status'], [3, 4, 5, 6])):
+                                if (in_array($row_chamados['id_status'], [3, 4])):
                                     $inativo = "disabled";
                                 endif; ?>
                                 <!-- RESPONDER CHAMADOS-->
