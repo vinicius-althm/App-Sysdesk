@@ -1,4 +1,5 @@
 /config/database/conexao.php
+/config/database/db_helpdesk.sql
 /includes/topbar.php
 /includes/sidebar.php
 /includes/preloader.php
